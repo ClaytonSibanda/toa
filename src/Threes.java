@@ -13,28 +13,59 @@ public class Threes {
 
 
             String input = sc.next();
+            int min =Integer.MAX_VALUE;
          Set<String> strSet = new HashSet<>();
-            for(int i=input.length()-1;i>-1;i++){
-                for(int j=0;j<input.length();j++){
 
-                }
 
-            }
+        System.out.println(checkPartition(input.trim()));
 
     }
+
+
+    static  int checkPartition(String b){
+
+        if(b==null || b.length()==0)
+            return 0;
+        return checkPartition(b,b.length(),0);
+
+    }
+
+    static int checkPartition(String b, int len , int index){
+
+        if(index==len )
+            return 0;
+        if(isMultiple(b)){
+            return 0;
+        }
+        int count = Integer.MAX_VALUE;
+        for(int i =index;i<len;i++){
+
+            if(isMultiple(b.substring(index,i))){
+                count =Math.min(count,1+checkPartition(b,len,i));
+            }
+        }
+
+
+        return count;
+    }
+
+
 
 
     static boolean isMultiple(String sub){
         int digit =0;
         int p=0;
-        for(int i=sub.length()-1;i>-1;i--){
+        long num = Long.parseLong(sub,2);
+        System.out.println(num);
 
-            digit+=(Integer.parseInt(sub.charAt(i)+"")*Math.pow(2,p));
-            p++;
-        }
+        while(num!=1){
+           if(num%3!=0)
+               return false;
+           num=num/3;
+       }
 
 
-  return digit%3==0;  }
+  return true;  }
 
 
 }
